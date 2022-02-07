@@ -1,5 +1,8 @@
 # RL_try
 
+主要参考来源：https://github.com/datawhalechina/easy-rl
+讲的非常清楚，透彻！
+
 该仓库用于练习强化学习的各个算法，以便深入理解
 
 每个dir下，都有各自的main函数，直接运行即可开始训练+测试+画出训练过程的数据图
