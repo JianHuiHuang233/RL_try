@@ -10,10 +10,12 @@
 已完成的算法：
 1. Q-learning
 2. DQN
-3. Dueling DQN
+3. Double DQN
+4. Dueling DQN
 
 Tips：
 
 1. 需要提前安装gym
+2. 深度学习框架使用的是:python3.6+pytorch
 
 未完待续
