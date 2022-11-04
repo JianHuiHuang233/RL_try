@@ -12,6 +12,7 @@
 2. DQN
 3. Double DQN
 4. Dueling DQN
+5. A2C
 
 Tips：
 
