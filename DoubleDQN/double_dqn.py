@@ -50,6 +50,7 @@ class DoubleDQN:
     def __init__(self, state_dim, action_dim, cfg):
         self.state_dim = state_dim
         self.action_dim = action_dim
+        # print(state_dim , action_dim)
         self.gamma = cfg.gamma
         self.frame_idx = 0
         self.device = cfg.device
@@ -84,6 +85,7 @@ class DoubleDQN:
             return
         state_batch, action_batch, reward_batch, next_state_batch, done_batch = self.memory.sample(self.batch_size)
 
+        # print(reward_batch)
         state_batch = torch.tensor(state_batch,device=self.device,dtype=torch.float)
         action_batch = torch.tensor(action_batch, device=self.device, dtype=torch.int64).unsqueeze(1)
         reward_batch = torch.tensor(reward_batch, device=self.device, dtype=torch.float)
@@ -91,10 +93,6 @@ class DoubleDQN:
         done_batch = torch.tensor(done_batch, device=self.device, dtype=torch.float)
 
         q_values = self.policy_net(state_batch).gather(dim=1, index=action_batch)
-
-        #for Neture DQN
-        # next_q_values = self.target_net(next_state_batch).max(1)[0].detach()
-
         #for DDQN  ========================
         next_q_values = self.policy_net(next_state_batch)
         next_target_values = self.target_net(next_state_batch)
@@ -102,6 +100,7 @@ class DoubleDQN:
         expect_q_values = reward_batch + self.gamma * next_target_q_values * (1-done_batch)
         #==================================
 
+        # print(q_values.shape, expect_q_values.unsqueeze(1).shape)
         loss = nn.MSELoss()(q_values , expect_q_values.unsqueeze(1))
         self.optimizer.zero_grad()
         loss.backward()
